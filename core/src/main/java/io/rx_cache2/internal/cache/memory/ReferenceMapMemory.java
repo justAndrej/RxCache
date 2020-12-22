@@ -23,12 +23,13 @@ import java.util.Set;
 
 import io.rx_cache2.internal.Memory;
 import io.rx_cache2.internal.Record;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class ReferenceMapMemory implements Memory {
   private final Map<String, io.rx_cache2.internal.Record> referenceMap;
 
   public ReferenceMapMemory() {
-    referenceMap = Collections.synchronizedMap(new io.rx_cache2.internal.cache.memory.apache.ReferenceMap<String, Record>());
+    referenceMap = new ConcurrentHashMap<>();
   }
 
   @Override public <T> io.rx_cache2.internal.Record<T> getIfPresent(String key) {
